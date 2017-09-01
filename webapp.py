@@ -136,18 +136,24 @@ def renderPage2():
     return render_template('page2.html')
 
 
+# Prevents user from going to page 3 & 4 if not logged in
 @app.route('/page3')
 def renderPage3():
-    # Checks if the user is logged in; is_logged_in from context processor
-    #if not is_logged_in:
-    if 'github_token' not in session:
+    if not logged_in():
         flash("You must be logged in to do that.", 'error')
         return redirect(url_for('home'))
     return render_template('page3.html')
 
 @app.route('/page4')
 def renderPage4():
+    if not logged_in():
+        flash("You must be logged in to do that.", 'error')
+        return redirect(url_for('home'))
     return render_template('page4.html')
+
+# Checks if there is a github token in session data, meaning logged in
+def logged_in():
+    return 'github_token' in session
 
 @github.tokengetter
 def get_github_oauth_token():

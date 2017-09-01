@@ -1,11 +1,11 @@
-body {
+{% extends "layout.html" %}
 
-}
+{% block title %}page1{% endblock %}
 
-#content {
-     margin-left: 20px;
-}
+{% block content %}
+  <h1>This is Page 2</h1>
 
-div.flash-messages {
-  min-height: 4em;
-}
+<p>Lorem ipsum Tritons rule!</p>
+
+{% endblock %}
+

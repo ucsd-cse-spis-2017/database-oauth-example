@@ -141,8 +141,13 @@ def renderPage1():
 def renderPage2():
     return render_template('page2.html')
 
+
 @app.route('/page3')
 def renderPage3():
+    # Checks if the user is logged in; is_logged_in from context processor
+    if not is_logged_in:
+        flash("You must be logged in to do that.", 'error')
+        return redirect(url_for('home'))
     return render_template('page3.html')
 
 @app.route('/page4')

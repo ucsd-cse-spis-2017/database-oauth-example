@@ -73,12 +73,6 @@ def logout():
     return redirect(url_for('home'))
 
 
-#@app.route('/logout')
-#def logout():
-#    session.pop('github_token', None)
-#    return redirect(url_for('index'))
-
-
 @app.route('/login/authorized')
 def authorized():
     resp = github.authorized_response()
@@ -145,7 +139,8 @@ def renderPage2():
 @app.route('/page3')
 def renderPage3():
     # Checks if the user is logged in; is_logged_in from context processor
-    if not is_logged_in:
+    #if not is_logged_in:
+    if 'github_token' not in session:
         flash("You must be logged in to do that.", 'error')
         return redirect(url_for('home'))
     return render_template('page3.html')

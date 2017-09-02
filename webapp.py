@@ -1,5 +1,6 @@
 from flask import Flask, redirect, url_for, session, request, jsonify
 from flask_oauthlib.client import OAuth
+from flask_pymongo import PyMongo
 from flask import render_template, flash, Markup
 
 from github import Github
@@ -30,6 +31,8 @@ app.debug = False
 
 app.secret_key = os.environ['APP_SECRET_KEY']
 oauth = OAuth(app)
+
+
 
 # This code originally from https://github.com/lepture/flask-oauthlib/blob/master/example/github.py
 # Edited by P. Conrad for SPIS 2016 to add getting Client Id and Secret from

@@ -51,6 +51,13 @@ github = oauth.remote_app(
     authorize_url='https://github.com/login/oauth/authorize'
 )
 
+# Configures correct environmental variables for MongoDB with mLab
+app.config['MONGO_HOST'] = os.environ['MONGO_HOST']
+app.config['MONGO_PORT'] = int(os.environ['MONGO_PORT'])
+app.config['MONGO_DBNAME'] = os.environ['MONGO_DBNAME']
+app.config['MONGO_USERNAME'] = os.environ['MONGO_USERNAME']
+app.config['MONGO_PASSWORD'] = os.environ['MONGO_PASSWORD']
+mongo = PyMongo(app)
 
 @app.context_processor
 def inject_logged_in():
@@ -140,6 +147,7 @@ def renderPage2():
 
 
 # Prevents user from going to page 3 & 4 if not logged in
+# Page where user writes message
 @app.route('/page3')
 def renderPage3():
     if not logged_in():
@@ -147,6 +155,8 @@ def renderPage3():
         return redirect(url_for('home'))
     return render_template('page3.html')
 
+
+# Displays message
 @app.route('/page4')
 def renderPage4():
     if not logged_in():

@@ -167,8 +167,11 @@ def renderPage4():
 
     # Adds the new message to the database
     user_message = request.args["message"]
+    fromPage3 = request.args["submitflag"] 
     login = session['user_data']['login']
-    mongo.db.messages.insert_one({"user" : login, "message" : user_message })
+
+    if fromPage3 == True:
+        mongo.db.messages.insert_one({"user" : login, "message" : user_message })
 
     # Finds all the messages that the current user submitted
     #user_messages = [x for x in mongo.db.messages.find({"user": login})]

@@ -166,7 +166,7 @@ def renderPage4():
         return redirect(url_for('home'))
 
     # Adds the new message to the database
-    user_message = request.form.get("message")
+    user_message = request.args("message")
     login = session['user_data']['login']
     mongo.db.messages.insert_one({"user" : login, "message" : user_message })
 

@@ -172,11 +172,13 @@ def renderPage4():
 
     # Finds all the messages that the current user submitted
     login = session['user_data']['login']
-    #user_messages = [x for x in mongo.db.messages.find({'login': login})]
+    user_messages = [x for x in mongo.db.messages.find()]
+
+    '''
     user_messages = []
     for x in mongo.db.messages.find({"login": login}):
         user_messages.append(x)
-
+'''
     return render_template('page4.html', doc_list = user_messages)
 
 # Checks if there is a github token in session data, meaning logged in

@@ -5,7 +5,7 @@
 {% block content %}
   <h1>All your messages will be here!</h1>
 
-  <p> {% login %}'s messages are: <p>
+  <p> {{ login }}'s messages are: <p>
 
   {% for doc in doc_list %}
     <p> {{ doc.message }} <p>

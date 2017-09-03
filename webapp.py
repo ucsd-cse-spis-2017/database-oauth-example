@@ -169,7 +169,8 @@ def renderResult():
     # Flashes message after redirect the home page to prevent user from
     # refreshing on the same page, sending last request again 
     flash("You have added your message! Click the Past Messages tab to see")
-    return redirect(url_for('home'))
+    #return redirect(url_for('home'))
+    return redirect(url_for('renderPage4'))
 
 
 # Page where webapp displays all messages

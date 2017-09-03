@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 
-{% block title %}page4{% endblock %}
+{% block title %}Messages{% endblock %}
 
 {% block content %}
   <h1>All your messages will be here!</h1>
 
-  <p> {{ login }}'s messages are: <p>
+  <h2> {{ login }}'s messages are: </h2>
 
   {% for doc in doc_list %}
-    <p> {{ doc.message }} <p>
+    <p> {{ doc.message }} </p>
   {% endfor %}
 
 

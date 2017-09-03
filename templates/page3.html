@@ -1,10 +1,13 @@
 {% extends "layout.html" %}
 
-{% block title %}page3{% endblock %}
+{% block title %}Write!{% endblock %}
 
 {% block content %}
   <h1>Write your message here!</h1>
 
+  <!-- "redirects" you to a temp page to add message to database -->
+  <!-- No actual result.html; just a app.route in webapp.py; redirect back to
+       homepage --> 
   <form action="/result"> 
     <input type="text" name="message" value="">
     <input type="submit" value="Save your Message">

@@ -168,11 +168,7 @@ def renderPage4():
     # Adds the new message to the database
     user_message = request.form.get("message")
     login = session['user_data']['login']
-    mongo.db.messages.insert_one( {
-                                    "user" : login,
-                                    "message" : user_message
-                                  }
-                                )
+    mongo.db.messages.insert_one({"user" : login, "message" : user_message })
 
     # Finds all the messages that the current user submitted
     login = session['user_data']['login']

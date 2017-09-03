@@ -157,6 +157,15 @@ def renderPage3():
 
     return render_template('page3.html')
 
+@app.route('/result')
+def renderResult():
+    user_message = request.args["message"]
+    login = session['user_data']['login']
+
+    mongo.db.messages.insert_one({"user" : login, "message" : user_message })
+
+    flash("You have added your message! Click the Past Messages tab to see")
+    return redirect(url_for('home'))
 
 # Page where webapp displays all messages
 @app.route('/page4')
@@ -166,16 +175,9 @@ def renderPage4():
         return redirect(url_for('home'))
 
     # Adds the new message to the database
-    user_message = request.args["message"]
-    fromPage3 = request.args["submitflag"] 
     login = session['user_data']['login']
 
-    if fromPage3 == True:
-        mongo.db.messages.insert_one({"user" : login, "message" : user_message })
-
     # Finds all the messages that the current user submitted
-    #user_messages = [x for x in mongo.db.messages.find({"user": login})]
-
     user_messages = []
     for x in mongo.db.messages.find({"user": login}):
         user_messages.append(x)

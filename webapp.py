@@ -154,18 +154,23 @@ def renderPage3():
         flash("You must be logged in to do that.", 'error')
         return redirect(url_for('home'))
 
-
     return render_template('page3.html')
 
+
+# Temp filler webpage to add user's message to database and redirects them
+# the home page to prevent duplicating the message save when refreshing
 @app.route('/result')
 def renderResult():
+    # Pulls the user's message from page3 & adds it to the database
     user_message = request.args["message"]
     login = session['user_data']['login']
-
     mongo.db.messages.insert_one({"user" : login, "message" : user_message })
 
+    # Flashes message after redirect the home page to prevent user from
+    # refreshing on the same page, sending last request again 
     flash("You have added your message! Click the Past Messages tab to see")
     return redirect(url_for('home'))
+
 
 # Page where webapp displays all messages
 @app.route('/page4')
@@ -174,18 +179,19 @@ def renderPage4():
         flash("You must be logged in to do that.", 'error')
         return redirect(url_for('home'))
 
-    # Adds the new message to the database
+    # Finds all the messages that the current user ever submitted
     login = session['user_data']['login']
-
-    # Finds all the messages that the current user submitted
     user_messages = []
     for x in mongo.db.messages.find({"user": login}):
         user_messages.append(x)
+
     return render_template('page4.html', login = login, doc_list = user_messages)
+
 
 # Checks if there is a github token in session data, meaning logged in
 def logged_in():
     return 'github_token' in session
+
 
 @github.tokengetter
 def get_github_oauth_token():

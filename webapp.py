@@ -153,16 +153,31 @@ def renderPage3():
     if not logged_in():
         flash("You must be logged in to do that.", 'error')
         return redirect(url_for('home'))
+
+
     return render_template('page3.html')
 
 
-# Displays message
+# Page where webapp displays all messages
 @app.route('/page4')
 def renderPage4():
     if not logged_in():
         flash("You must be logged in to do that.", 'error')
         return redirect(url_for('home'))
-    return render_template('page4.html')
+
+    # Adds the new message to the database
+    user_message = request.form.get("message")
+    login = session['user_data']['login']
+    mongo.db.messages.insert_one( {
+                                    "user" : login,
+                                    "message" : user_message
+                                  }
+                                )
+
+    # Finds all the messages that the current user submitted
+    login = session['user_data']['login']
+    user_messages = [x for x in mongo.db.messages.find({'login':login})]
+    return render_template('page4.html', messages = user_messages)
 
 # Checks if there is a github token in session data, meaning logged in
 def logged_in():

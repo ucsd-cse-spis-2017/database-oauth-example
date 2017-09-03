@@ -5,5 +5,9 @@
 {% block content %}
   <h1>All your messages will be here!</h1>
 
+  {% for message in messages %}
+    <p> {{ message }} <p>
+  {% endfor %}
+
 
 {% endblock %}
